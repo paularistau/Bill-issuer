@@ -1,42 +1,52 @@
-# Define a imagem base
 FROM ubuntu:latest
 
-# Atualiza a lista de pacotes
-RUN apt-get update && apt-get upgrade -y && apt-get install -y curl
+# Atualiza os pacotes existentes e instala as dependências necessárias
+RUN apt-get update && apt-get install -y curl git gnupg2
 
 # Instala o Node.js
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
 RUN apt-get install -y nodejs
 
+# Instala o Yarn
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt-get update && apt-get install -y yarn
+
 # Instala o NestJS CLI globalmente
-RUN npm install -g @nestjs/cli
+RUN yarn global add @nestjs/cli
 
-# Instala o PostgreSQL
-RUN apt-get install -y postgresql postgresql-contrib
+# Instala o Postman
+RUN wget https://dl.pstmn.io/download/latest/linux64 -O postman.tar.gz && \
+    tar -xzf postman.tar.gz -C /opt && \
+    rm postman.tar.gz && \
+    ln -s /opt/Postman/Postman /usr/bin/postman
 
-# Cria um usuário e um banco de dados para a aplicação
-RUN service postgresql start && su postgres -c "psql -c \"CREATE USER myuser WITH PASSWORD 'mypassword';\""
-RUN service postgresql start && su postgres -c "psql -c \"CREATE DATABASE mydatabase OWNER myuser;\""
+# Instala o React CLI globalmente
+RUN yarn global add react-scripts
 
-# Copia os arquivos do backend para a imagem e instala as dependências
-COPY backend/ /app/backend/
-WORKDIR /app/backend
-RUN npm install
+# Copia o código do front-end para o diretório /app
+COPY ./frontend /app
 
-# Copia os arquivos do frontend para a imagem e instala as dependências
-COPY frontend/ /app/frontend/
-WORKDIR /app/frontend
-RUN npm install
+# Instala as dependências do front-end
+RUN cd /app && yarn install
 
-# Configura o serviço do mailtrap no backend
-ENV MAIL_HOST=smtp.mailtrap.io
-ENV MAIL_PORT=2525
-ENV MAIL_USERNAME=username
-ENV MAIL_PASSWORD=password
+# Copia o código do back-end para o diretório /api
+COPY ./api /api
 
-# Expõe as portas para a aplicação
-EXPOSE 3000
-EXPOSE 5432
+# Instala as dependências do back-end
+RUN cd /api && yarn install
 
-# Inicia tanto o backend quanto o frontend com suas respectivas dependências
-CMD service postgresql start && cd /app/backend && npm run start:dev & cd /app/frontend && npm start
+# Configura o Mailtrap no back-end
+ENV MAILTRAP_HOST smtp.mailtrap.io
+ENV MAILTRAP_PORT 2525
+ENV MAILTRAP_USER <your_mailtrap_username>
+ENV MAILTRAP_PASS <your_mailtrap_password>
+
+# Expor as portas 3000 (front-end) e 4000 (back-end)
+EXPOSE 3000 4000
+
+# Inicia o back-end
+CMD ["yarn", "start:api"]
+
+# Inicia o front-end em segundo plano
+CMD ["yarn", "start:frontend"]
