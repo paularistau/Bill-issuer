@@ -1,12 +1,12 @@
-import { IsOptional, IsIn, IsNotEmpty } from 'class-validator';
+import { IsOptional, IsEnum, IsString } from 'class-validator';
 import { DebtStatus } from 'src/debts/debts.model';
 
 export class GetDebtsFilterDto {
   @IsOptional()
-  @IsIn([DebtStatus.CREATED, DebtStatus.DELAYED, DebtStatus.PAYED])
-  status: DebtStatus;
+  @IsEnum(DebtStatus)
+  status?: DebtStatus;
 
   @IsOptional()
-  @IsNotEmpty()
+  @IsString()
   search: string;
 }

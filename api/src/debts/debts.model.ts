@@ -1,8 +1,9 @@
 export interface Debt {
   id: string;
+  debtId: number;
   name: string;
   email: string;
-  debtAmount: number;
+  debtAmount: string;
   debtDueDate: Date;
   status: DebtStatus;
 }

@@ -1,4 +1,5 @@
 import { IsNotEmpty } from 'class-validator';
+import { DebtStatus } from 'src/debts/debts.model';
 
 export class CreateDebtDto {
   @IsNotEmpty()
@@ -11,7 +12,7 @@ export class CreateDebtDto {
   email: string;
 
   @IsNotEmpty()
-  debtAmount: number;
+  debtAmount: string;
 
   @IsNotEmpty()
   debtDueDate: Date;

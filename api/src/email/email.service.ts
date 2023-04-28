@@ -1,34 +1,33 @@
-import { Injectable, Res } from '@nestjs/common';
-import { Response } from 'express';
+import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import * as PDFDocument from 'pdfkit';
 import { QrcodeService } from '../qrcode/qrcode.service';
-import fs from 'fs';
-import path from 'path';
-import { boletoData } from 'src/email/email.constants';
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const { WritableStreamBuffer } = require('memory-streams');
+import { DebtsService } from 'src/debts/debts.service';
 
 @Injectable()
 export class EmailService {
   constructor(
     private readonly mailService: MailerService,
     private readonly qrcodeService: QrcodeService,
+    private readonly debtsService: DebtsService,
   ) {}
 
-  async sendMail(email: string): Promise<void> {
-    const uuid = await this.qrcodeService.generateUuid();
-    const qrcode = await this.qrcodeService.generateQrcode(uuid);
-    const name = 'esmeraldinho';
+  async sendMail(debtId: number): Promise<void> {
+    const debt = this.debtsService.getDebtById(Number(debtId));
+    console.log('debt sendmail', debt);
+    const qrcode = await this.qrcodeService.generateQrcode(debtId);
 
     const mailOptions = {
       from: 'seuemail@gmail.com',
-      to: email,
+      to: debt.email,
       subject: 'Boleto gerado',
       template: 'email',
       context: {
-        name: name,
+        debtId: debtId,
+        name: debt.name,
+        email: debt.email,
+        debtAmount: debt.debtAmount,
+        debtDueDate: debt.debtDueDate,
+        status: debt.status,
         qrcode: qrcode,
       },
     };

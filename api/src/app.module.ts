@@ -8,11 +8,13 @@ import { EmailModule } from './email/email.module';
 import { QrcodeModule } from './qrcode/qrcode.module';
 import { ConfigModule } from '@nestjs/config';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
-import path, { join } from 'path';
+import { join } from 'path';
+import { TypeOrmModule } from '@nestjs/typeorm';
 @Module({
   imports: [
     DebtsModule,
     PaymentsModule,
+    EmailModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async () => ({
@@ -35,8 +37,17 @@ import path, { join } from 'path';
         },
       }),
     }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'postgres',
+      database: 'kanastra-db',
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
     ConfigModule.forRoot(),
-    EmailModule,
     QrcodeModule,
   ],
 

@@ -7,21 +7,20 @@ import {
   Patch,
   Post,
   Query,
+  UploadedFile,
+  UseInterceptors,
   ValidationPipe,
 } from '@nestjs/common';
-import { Debt, DebtStatus } from 'src/debts/debts.model';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Debt } from 'src/debts/debts.model';
 import { DebtsService } from 'src/debts/debts.service';
 import { CreateDebtDto } from 'src/debts/dto/create-debt.dto';
 import { GetDebtsFilterDto } from 'src/debts/dto/filter-debts.dto';
+import { UpdateDebtStatusDTO } from 'src/debts/dto/update-debt.dto';
 
 @Controller('debts')
 export class DebtsController {
   constructor(private debtsService: DebtsService) {}
-
-  @Get()
-  getAllDebts(): Debt[] {
-    return this.debtsService.getAllDebts();
-  }
 
   @Get()
   getDebts(@Query(ValidationPipe) filterDto: GetDebtsFilterDto): Debt[] {
@@ -32,9 +31,9 @@ export class DebtsController {
     }
   }
 
-  @Get('/:id')
-  getDebtById(@Param('id') id: string): Debt {
-    return this.debtsService.getDebtById(id);
+  @Get('/:debtId')
+  getDebtById(@Param('debtId') debtId: number): Debt {
+    return this.debtsService.getDebtById(debtId);
   }
 
   @Post()
@@ -42,16 +41,28 @@ export class DebtsController {
     return this.debtsService.createDebt(createDebtDto);
   }
 
-  @Delete('/:id')
-  deleteTask(@Param('id') id: string): void {
-    this.debtsService.deleteDebt(id);
+  @Post('imports')
+  @UseInterceptors(FileInterceptor('file'))
+  async importDebts(@UploadedFile() file: any) {
+    try {
+      await this.debtsService.createDebtsFromCSV(file.buffer);
+      return { message: 'Debts imported successfully' };
+    } catch (error) {
+      return { message: 'Error importing debts', error: error };
+    }
   }
 
-  @Patch('/:id/status')
+  @Delete('/:debtId')
+  deleteTask(@Param('debtId') debtId: number): void {
+    this.debtsService.deleteDebt(debtId);
+  }
+
+  @Patch('/:debtId/status')
   updateDebtStatus(
-    @Param('id') id: string,
-    @Body('status') status: DebtStatus,
+    @Param('debtId') debtId: number,
+    @Body() UpdateDebtStatusDTO: UpdateDebtStatusDTO,
   ): Debt {
-    return this.debtsService.updateDebtStatus(id, status);
+    const { status } = UpdateDebtStatusDTO;
+    return this.debtsService.updateDebtStatus(debtId, status);
   }
 }

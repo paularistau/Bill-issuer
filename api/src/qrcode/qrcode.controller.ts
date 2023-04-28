@@ -6,9 +6,9 @@ import { QrcodeService } from './qrcode.service';
 export class QrcodeController {
   constructor(private readonly qrcodeService: QrcodeService) {}
 
-  @Get(':uuid')
-  async generateQrcode(@Param('uuid') uuid: string, @Res() res: Response) {
-    const qrcode = await this.qrcodeService.generateQrcode(uuid);
+  @Get(':id')
+  async generateQrcode(@Param('id') id: number, @Res() res: Response) {
+    const qrcode = await this.qrcodeService.generateQrcode(id);
     res.setHeader('Content-Type', 'image/png');
     res.send(
       Buffer.from(qrcode.replace(/^data:image\/png;base64,/, ''), 'base64'),
