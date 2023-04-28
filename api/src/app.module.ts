@@ -10,6 +10,9 @@ import { ConfigModule } from '@nestjs/config';
 import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 @Module({
   imports: [
     DebtsModule,
@@ -19,10 +22,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       imports: [ConfigModule],
       useFactory: async () => ({
         transport: {
-          host: 'sandbox.smtp.mailtrap.io',
+          host: process.env.MAILTRAP_HOST,
           auth: {
-            user: 'f978ef6b6c3123',
-            pass: '3b620b5e137bbf',
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS,
           },
         },
         defaults: {
@@ -39,11 +42,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
     }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'postgres',
-      database: 'kanastra-db',
+      host: process.env.POSTGRES_HOST,
+      port: parseInt(process.env.POSTGRES_PORT, 10),
+      username: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
       autoLoadEntities: true,
       synchronize: true,
     }),
