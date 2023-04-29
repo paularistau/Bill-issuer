@@ -1,0 +1,78 @@
+{
+  "extends": ["airbnb", "prettier"],
+  "parser": "@babel/eslint-parser",
+  "plugins": ["prettier", "@typescript-eslint"],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "requireConfigFile": false,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "impliedStrict": true,
+      "classes": true
+    },
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "jest": true
+  },
+  "rules": {
+    "arrow-body-style": ["error", "as-needed"],
+    "class-methods-use-this": 0,
+    "react/jsx-filename-extension": 0,
+    "global-require": 0,
+    "react/destructuring-assignment": 0,
+    "import/named": 2,
+    "linebreak-style": 0,
+    "import/no-dynamic-require": 0,
+    "import/no-named-as-default": 0,
+    "import/no-unresolved": 2,
+    "import/prefer-default-export": 0,
+    "semi": [2, "always"],
+    "max-len": [
+      "error",
+      {
+        "code": 80,
+        "ignoreUrls": true,
+        "ignoreComments": true,
+        "ignoreStrings": true,
+        "ignoreTemplateLiterals": true
+      }
+    ],
+    "new-cap": [
+      2,
+      {
+        "capIsNew": false,
+        "newIsCap": true
+      }
+    ],
+    "no-param-reassign": 0,
+    "no-shadow": 0,
+    "no-tabs": 2,
+    "no-underscore-dangle": 0,
+    "react/forbid-prop-types": [
+      "error",
+      {
+        "forbid": ["any"]
+      }
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "react/jsx-no-bind": [
+      "error",
+      {
+        "ignoreRefs": true,
+        "allowArrowFunctions": true,
+        "allowBind": false
+      }
+    ],
+    "react/no-unknown-property": [
+      2,
+      {
+        "ignore": ["itemscope", "itemtype", "itemprop"]
+      }
+    ]
+  }
+}
