@@ -1,7 +1,7 @@
 {
-  "extends": ["airbnb", "prettier"],
+  "extends": ["prettier", "plugin:import/recommended"],
   "parser": "@babel/eslint-parser",
-  "plugins": ["prettier", "@typescript-eslint"],
+  "plugins": ["prettier", "@typescript-eslint", "import"],
   "parserOptions": {
     "ecmaVersion": 8,
     "requireConfigFile": false,
@@ -14,6 +14,15 @@
       "presets": ["@babel/preset-react"]
     }
   },
+  "settings": {
+    "import/resolver": {
+      "alias": {
+        "map": [["@", "./src"]],
+        "extensions": [".js", ".ts", ".tsx", ".jsx", ".json"]
+      }
+    }
+  },
+
   "env": {
     "browser": true,
     "node": true,
