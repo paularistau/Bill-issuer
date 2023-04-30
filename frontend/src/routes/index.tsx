@@ -14,7 +14,7 @@ function Routes() {
         <Route path="/payments">
           <Payments />
         </Route>
-        <Route path="/debits">
+        <Route path="/">
           <Debits />
         </Route>
       </Switch>
