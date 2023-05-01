@@ -12,8 +12,7 @@ export class EmailService {
   ) {}
 
   async sendMail(debtId: number): Promise<void> {
-    const debt = this.debtsService.getDebtById(Number(debtId));
-    console.log('debt sendmail', debt);
+    const debt = await this.debtsService.getDebtById(Number(debtId));
     const qrcode = await this.qrcodeService.generateQrcode(debtId);
 
     const mailOptions = {

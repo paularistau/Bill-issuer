@@ -21,7 +21,7 @@ export class EmailController {
       console.log('enviarBoletoPorEmail ID =>', id, typeof id);
       const debt = this.debtsService.getDebtById(Number(id));
 
-      await this.mailService.sendMail(debt.debtId);
+      // await this.mailService.sendMail(debt.debtId);
       return { message: 'Boleto enviado com sucesso!' };
     } catch (error) {
       console.error('Erro ao enviar boleto:', error);

@@ -1,37 +1,19 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DebtStatus } from 'src/debts/debts.model';
-import { DebtsService } from 'src/debts/debts.service';
+import { Payment } from 'src/payments/payments.entity';
 import { CreatePaymentDto } from 'src/payments/dto/create-payment-dto';
 import { GetPaymentsFilterDto } from 'src/payments/dto/filter-debts.dto';
-import { Payment } from 'src/payments/payments.model';
-import { uuid } from 'uuidv4';
+import { PaymentsRepository } from 'src/payments/payments.repository';
 
 @Injectable()
 export class PaymentsService {
-  constructor(private debtService: DebtsService) {}
-  private payments: Payment[] = [];
+  constructor(private paymentsRepository: PaymentsRepository) {}
 
-  getAllPayments(): Payment[] {
-    return this.payments;
+  async getAllPayments(filterDto: GetPaymentsFilterDto): Promise<Payment[]> {
+    return await this.paymentsRepository.getPayments(filterDto);
   }
 
-  getPaymentsWithFilters(filterDto: GetPaymentsFilterDto): Payment[] {
-    const { search } = filterDto;
-    let payments = this.getAllPayments();
-
-    if (search) {
-      payments = payments.filter(
-        (payment) =>
-          payment.debtId.toString().includes(search) ||
-          payment.paidBy.includes(search),
-      );
-    }
-
-    return payments;
-  }
-
-  getPaymentById(debtId: number): Payment {
-    const found = this.payments.find((payment) => payment.debtId === debtId);
+  async getPaymentById(debtId: number): Promise<Payment> {
+    const found = await this.paymentsRepository.findOne(debtId);
 
     if (!found) {
       throw new NotFoundException(`Payment with id ${debtId} not found`);
@@ -40,23 +22,7 @@ export class PaymentsService {
     return found;
   }
 
-  createPayment(createPaymentDto: CreatePaymentDto): Payment {
-    const { debtId, paidBy } = createPaymentDto;
-
-    const debt = this.debtService.getDebtById(debtId);
-
-    // // atualizar o status da dívida
-    // this.debtService.updateDebtStatus(debt.debtId, DebtStatus.PAYED);
-
-    const payment: Payment = {
-      id: uuid(),
-      debtId,
-      paidAt: new Date(),
-      paidAmount: debt.debtAmount,
-      paidBy,
-    };
-
-    this.payments.push(payment);
-    return payment;
+  async createPayment(createPaymentDto: CreatePaymentDto): Promise<Payment> {
+    return await this.paymentsRepository.createPayment(createPaymentDto);
   }
 }

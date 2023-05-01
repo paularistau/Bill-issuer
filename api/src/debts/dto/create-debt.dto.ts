@@ -1,5 +1,4 @@
 import { IsNotEmpty } from 'class-validator';
-import { DebtStatus } from 'src/debts/debts.model';
 
 export class CreateDebtDto {
   @IsNotEmpty()

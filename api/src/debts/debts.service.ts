@@ -1,67 +1,39 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Debt, DebtStatus } from './debts.model';
-import { uuid } from 'uuidv4';
+import { DebtStatus } from './debts-status.enum';
+import { Debt } from 'src/debts/debts.entity';
 import { CreateDebtDto } from 'src/debts/dto/create-debt.dto';
 import { GetDebtsFilterDto } from 'src/debts/dto/filter-debts.dto';
+import { DebtsRepository } from 'src/debts/debts.repository';
+import { InjectRepository } from '@nestjs/typeorm';
 @Injectable()
 export class DebtsService {
-  private debts: Debt[] = [];
+  constructor(
+    @InjectRepository(DebtsRepository)
+    private debtsRepository: DebtsRepository,
+  ) {}
 
-  getAllDebts(): Debt[] {
-    return this.debts;
+  getDebts(filterDto: GetDebtsFilterDto): Promise<Debt[]> {
+    return this.debtsRepository.getDebts(filterDto);
   }
 
-  getDebtsWithFilters(filterDto: GetDebtsFilterDto): Debt[] {
-    const { status, search } = filterDto;
-    let debts = this.getAllDebts();
+  async getDebtById(debtId: number): Promise<Debt> {
+    const found = await this.debtsRepository.findOne(debtId);
 
-    if (status) {
-      debts = debts.filter((debt) => debt.status === status);
+    if (!found) {
+      throw new NotFoundException(`Debt with id ${debtId} not found`);
     }
 
-    if (search) {
-      debts = debts.filter(
-        (debt) => debt.name.includes(search) || debt.email.includes(search),
-      );
-    }
-
-    return debts;
+    return found;
   }
 
-  getDebtById(debtId: number): Debt {
-    const debt = this.debts.find(
-      (debt) => Number(debt.debtId) == Number(debtId),
-    );
-
-    // if (!debt) {
-    //   throw new NotFoundException(`Debt with id ${debtId} not found`);
-    // }
-
-    console.log('return debt', debt, typeof debtId, typeof debt.debtId);
-    return debt;
-  }
-
-  createDebt(createDebtDto: CreateDebtDto): Debt {
-    const { name, email, debtAmount, debtDueDate, debtId } = createDebtDto;
-    const debt: Debt = {
-      id: uuid(),
-      debtId: debtId,
-      name,
-      email,
-      debtAmount,
-      debtDueDate,
-      status: DebtStatus.CREATED,
-    };
-
-    this.debts.push(debt);
-    return debt;
+  createDebt(createDebtDto: CreateDebtDto): Promise<Debt> {
+    return this.debtsRepository.createDebt(createDebtDto);
   }
 
   async createDebtsFromCSV(buffer: Buffer) {
     const csv = buffer.toString();
     const rows = csv.split('\n');
     const debts: CreateDebtDto[] = [];
-
     for (let i = 1; i < rows.length; i++) {
       const row = rows[i];
       if (!row) {
@@ -78,21 +50,24 @@ export class DebtsService {
         debtId: Number(debtId),
       });
     }
-
     for (const debt of debts) {
       this.createDebt(debt);
     }
   }
 
-  deleteDebt(debtId: number): void {
-    const found = this.getDebtById(debtId);
-    this.debts = this.debts.filter((debt) => debt.debtId !== found.debtId);
-  }
+  async deleteDebt(debtId: number): Promise<void> {
+    const result = await this.debtsRepository.delete(debtId);
 
-  updateDebtStatus(debtId: number, status: DebtStatus): Debt {
-    console.log(debtId);
-    const task = this.getDebtById(debtId);
+    if (result.affected === 0) {
+      throw new NotFoundException(`Debt with id ${debtId} not found`);
+    }
+  }
+  async updateDebtStatus(debtId: number, status: DebtStatus): Promise<Debt> {
+    const task = await this.getDebtById(debtId);
+
     task.status = status;
+    await this.debtsRepository.save(task);
+
     return task;
   }
 }

@@ -18,6 +18,7 @@ dotenv.config();
     DebtsModule,
     PaymentsModule,
     EmailModule,
+    QrcodeModule,
     MailerModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async () => ({
@@ -27,6 +28,7 @@ dotenv.config();
             user: process.env.MAILTRAP_USER,
             pass: process.env.MAILTRAP_PASS,
           },
+          port: process.env.MAILTRAP_PORT,
         },
         defaults: {
           from: '<sendgrid_from_email_address>',
@@ -51,7 +53,6 @@ dotenv.config();
       synchronize: true,
     }),
     ConfigModule.forRoot(),
-    QrcodeModule,
   ],
 
   controllers: [AppController],

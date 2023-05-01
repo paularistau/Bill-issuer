@@ -1,5 +1,5 @@
 import { IsOptional, IsEnum, IsString } from 'class-validator';
-import { DebtStatus } from 'src/debts/debts.model';
+import { DebtStatus } from 'src/debts/debts-status.enum';
 
 export class GetDebtsFilterDto {
   @IsOptional()

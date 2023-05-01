@@ -7,35 +7,29 @@ import {
   Query,
   ValidationPipe,
 } from '@nestjs/common';
-import { DebtsService } from 'src/debts/debts.service';
+import { Payment } from 'src/payments/payments.entity';
 import { CreatePaymentDto } from 'src/payments/dto/create-payment-dto';
 import { GetPaymentsFilterDto } from 'src/payments/dto/filter-debts.dto';
-import { Payment } from 'src/payments/payments.model';
 import { PaymentsService } from 'src/payments/payments.service';
 
 @Controller('payments')
 export class PaymentsController {
-  constructor(
-    private paymentService: PaymentsService,
-    private debtsService: DebtsService,
-  ) {}
+  constructor(private paymentService: PaymentsService) {}
 
   @Get()
-  getDebts(@Query(ValidationPipe) filterDto: GetPaymentsFilterDto): Payment[] {
-    if (Object.keys(filterDto).length) {
-      return this.paymentService.getPaymentsWithFilters(filterDto);
-    } else {
-      return this.paymentService.getAllPayments();
-    }
+  getPayments(
+    @Query(ValidationPipe) filterDto: GetPaymentsFilterDto,
+  ): Promise<Payment[]> {
+    return this.paymentService.getAllPayments(filterDto);
   }
 
   @Get('/:debtId')
-  getPaymentById(@Param('debtId') debtId: number): Payment {
+  getPaymentById(@Param('debtId') debtId: number): Promise<Payment> {
     return this.paymentService.getPaymentById(debtId);
   }
 
   @Post()
-  createDebt(@Body() createPaymentDto: CreatePaymentDto): Payment {
+  createPayment(@Body() createPaymentDto: CreatePaymentDto): Promise<Payment> {
     return this.paymentService.createPayment(createPaymentDto);
   }
 }
