@@ -6,17 +6,20 @@ import GlobalStyle from './styles/global';
 import { colors } from './constants';
 import history from './services/history';
 import logo from './logo.svg';
-import './App.css';
 import { CustomRouter } from './routes/customRouter';
+import Layout from './layout';
+import { ModalProvider } from './hooks/useModal';
 
 function App() {
   return (
-    <CustomRouter history={history}>
-      <ThemeProvider theme={colors}>
-        <Routes />
-        <GlobalStyle />
-      </ThemeProvider>
-    </CustomRouter>
+    <>
+      <ModalProvider>
+        <ThemeProvider theme={colors}>
+          <Routes />
+          <GlobalStyle />
+        </ThemeProvider>
+      </ModalProvider>
+    </>
   );
 }
 

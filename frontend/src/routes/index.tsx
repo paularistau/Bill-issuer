@@ -1,22 +1,28 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
+  Switch,
   Route,
-  Routes as Switch,
+  Redirect,
 } from 'react-router-dom';
 import { Payments } from '../pages/Payments';
-import { Debits } from '../pages/Debits';
+import { Debts } from '../pages/Debts';
+import Layout from '../layout';
 
 function Routes() {
   return (
     <Router>
       <Switch>
-        <Route path="/payments">
-          <Payments />
-        </Route>
-        <Route path="/">
-          <Debits />
-        </Route>
+        <Layout>
+          <Redirect
+            to={{
+              pathname: '/debts',
+              state: { from: '/' },
+            }}
+          />
+          <Route exact path="/debts" component={Debts} />
+          <Route exact path="/payments" component={Payments} />
+        </Layout>
       </Switch>
     </Router>
   );

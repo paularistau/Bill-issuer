@@ -1,6 +1,8 @@
 export default {
-  primary: '',
-  background: '',
+  primary: '#16392A',
+  background: '#F2F2F2',
+
+  lightGreen: '#7EA192',
 
   success: '#65AC1E',
   darkGreen: '#00793A',
@@ -13,5 +15,6 @@ export default {
   darkGray: '#7C7C7C',
   middleGray: '#ADADAD',
   lightGray: '#DCDCDC',
-  white: '',
+  white: '#FFFFFF',
+  textGray: '#454545'
 }

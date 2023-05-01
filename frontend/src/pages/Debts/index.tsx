@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { Calendar } from '../../components/calendar';
 import { Body, Container } from '../../components/global/styles';
 import { Header } from '../../components/header';
-import { Loading } from '../../components/loading';
 import { ListView, ListWrapper } from '../../components/itemList/styles';
 import { NotFound } from '../../components/notFound';
 import InfiniteScroll from 'react-infinite-scroll-component';
-import { PaymentLine } from './components/line';
+import { DebtLine } from './components/line';
+import { useModal } from '../../hooks/useModal';
+import { ModalNewDebt } from './components/modalNewDebt';
+import { Loading } from '../../components/loading';
 
-export const Payments = () => {
+export const Debts = memo(() => {
   const [customerIsLoading, setCustomerIsLoading] = useState<boolean>(false);
+  const { toggleModal, setModalView } = useModal();
 
   let data = [
     { PartnNumb: 1, Title: 'bliu' },
@@ -25,13 +28,24 @@ export const Payments = () => {
     { PartnNumb: 1, Title: 'bliu' },
     { PartnNumb: 1, Title: 'bliu' },
   ];
+
+  const handleCreateDebt = useCallback(() => {
+    setModalView(<ModalNewDebt />, {
+      title: 'Cadastrar débito',
+      width: 800,
+      height: 550,
+    });
+    toggleModal();
+  }, []);
+
   return (
     <Container>
       <Header
-        title="Pagamentos"
+        title="Débitos"
         isLoading={false}
         handleSearch={(value) => console.log(value)}
-        hasNew={false}
+        hasNew={true}
+        handleNewDebt={handleCreateDebt}
       />
 
       <Body>
@@ -52,7 +66,7 @@ export const Payments = () => {
                   scrollableTarget="scrollableDiv"
                 >
                   {data.map((item) => (
-                    <PaymentLine
+                    <DebtLine
                       key={item?.PartnNumb}
                       onClick={() => console.log(item)}
                       debt={item}
@@ -66,4 +80,4 @@ export const Payments = () => {
       </Body>
     </Container>
   );
-};
+});
