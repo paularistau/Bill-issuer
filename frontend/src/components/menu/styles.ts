@@ -14,6 +14,8 @@ export const Container = styled.div`
   position: fixed;
   z-index: 2;
   width: 80px;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
 `;
 
 export const Logo = styled.img.attrs({
