@@ -1,8 +1,8 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { Debt } from 'src/debts/debts.entity';
-import { CreateDebtDto } from 'src/debts/dto/create-debt.dto';
-import { DebtStatus } from 'src/debts/debts-status.enum';
-import { GetDebtsFilterDto } from 'src/debts/dto/filter-debts.dto';
+import { Debt } from '../debts/debts.entity';
+import { CreateDebtDto } from '../debts/dto/create-debt.dto';
+import { DebtStatus } from './debts-status.enum';
+import { GetDebtsFilterDto } from '../debts/dto/filter-debts.dto';
 
 @EntityRepository(Debt)
 export class DebtsRepository extends Repository<Debt> {

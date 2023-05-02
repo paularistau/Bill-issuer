@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PaymentsController } from 'src/payments/payments.controller';
-import { PaymentsRepository } from 'src/payments/payments.repository';
-import { PaymentsService } from 'src/payments/payments.service';
+import { PaymentsController } from '../payments/payments.controller';
+import { PaymentsRepository } from '../payments/payments.repository';
+import { PaymentsService } from '../payments/payments.service';
 
 @Module({
   controllers: [PaymentsController],

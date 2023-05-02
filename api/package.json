@@ -29,6 +29,8 @@
     "@nestjs/typeorm": "^7.1.5",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.1",
+    "csv-parse": "^5.3.9",
+    "csv-parser": "^3.0.0",
     "fontkit": "^2.0.2",
     "pg": "^8.6.0",
     "qrcode": "^1.5.3",

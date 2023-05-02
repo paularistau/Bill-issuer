@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { QrcodeService } from '../qrcode/qrcode.service';
-import { DebtsService } from 'src/debts/debts.service';
+import { DebtsService } from '../debts/debts.service';
 
 @Injectable()
 export class EmailService {

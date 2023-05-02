@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
-import { GetPaymentsFilterDto } from 'src/payments/dto/filter-debts.dto';
-import { CreatePaymentDto } from 'src/payments/dto/create-payment-dto';
-import { Payment } from 'src/payments/payments.entity';
+import { GetPaymentsFilterDto } from '../payments/dto/filter-debts.dto';
+import { CreatePaymentDto } from '../payments/dto/create-payment-dto';
+import { Payment } from '../payments/payments.entity';
 
 @EntityRepository(Payment)
 export class PaymentsRepository extends Repository<Payment> {

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { DebtsController } from './debts.controller';
 import { DebtsService } from './debts.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DebtsRepository } from 'src/debts/debts.repository';
+import { DebtsRepository } from '../debts/debts.repository';
 
 @Module({
   controllers: [DebtsController],

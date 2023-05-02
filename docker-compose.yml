@@ -1,48 +1,56 @@
 version: '3'
 
 services:
-  api:
-    build: .
-    command: yarn start:dev
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: kanastra-db
     volumes:
-      - .:/app
+      - ./postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@domain.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - '8080:80'
+
+  api:
+    build: ./api
     ports:
       - '3000:3000'
     environment:
-      - DATABASE_HOST=postgres
-      - DATABASE_PORT=5432
-      - DATABASE_USERNAME=postgres
-      - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=kanastra-db
-      - EMAIL_HOST=sandbox.smtp.mailtrap.io
-      - EMAIL_PORT=2525
-      - EMAIL_USER=f978ef6b6c3123
-      - EMAIL_PASS=3b620b5e137bbf
-      - ENV_LOCAL_URL=http://localhost:3000/
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - '8080:80'
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@example.com
-      - PGADMIN_DEFAULT_PASSWORD=admin
-  postgres:
-    image: postgres
-    restart: always
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: kanastra-db
+      NODE_ENV: development
+      MAILTRAP_HOST: sandbox.smtp.mailtrap.io
+      MAILTRAP_PORT: 2525
+      MAILTRAP_USERNAME: f978ef6b6c3123
+      MAILTRAP_PASSWORD: 3b620b5e137bbf
+    depends_on:
+      - postgres
     volumes:
-      - postgres-data:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=kanastra-db
-  frontend:
-    build: frontend
-    ports:
-      - '8081:3000'
-    environment:
-      - REACT_APP_API_URL=http://api:3000
-      - REACT_APP_ENV_LOCAL_URL=http://localhost:3000
+      - ./api:/app
+      - /app/node_modules
 
-volumes:
-  postgres-data:
+  frontend:
+    build: ./frontend
+    restart: always
+    ports:
+      - '3434:3000'
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_URL: http://api:3000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules

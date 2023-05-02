@@ -1,7 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { DebtsService } from 'src/debts/debts.service';
-import { EmailResult } from 'src/email/email.entity';
-import { EmailService } from 'src/email/email.service';
+import { DebtsService } from '../debts/debts.service';
+import { EmailResult } from '../email/email.entity';
+import { EmailService } from '../email/email.service';
 
 @Controller('email')
 export class EmailController {
@@ -19,9 +19,9 @@ export class EmailController {
   async enviarBoletoPorEmail(@Param('id') id: number): Promise<EmailResult> {
     try {
       console.log('enviarBoletoPorEmail ID =>', id, typeof id);
-      const debt = this.debtsService.getDebtById(Number(id));
+      const debt = await this.debtsService.getDebtById(Number(id));
 
-      // await this.mailService.sendMail(debt.debtId);
+      await this.mailService.sendMail(debt.debtId);
       return { message: 'Boleto enviado com sucesso!' };
     } catch (error) {
       console.error('Erro ao enviar boleto:', error);

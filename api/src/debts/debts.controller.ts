@@ -12,11 +12,23 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { Debt } from 'src/debts/debts.entity';
-import { DebtsService } from 'src/debts/debts.service';
-import { CreateDebtDto } from 'src/debts/dto/create-debt.dto';
-import { GetDebtsFilterDto } from 'src/debts/dto/filter-debts.dto';
-import { UpdateDebtStatusDTO } from 'src/debts/dto/update-debt.dto';
+import { Debt } from '../debts/debts.entity';
+import { DebtsService } from '../debts/debts.service';
+import { CreateDebtDto } from '../debts/dto/create-debt.dto';
+import { GetDebtsFilterDto } from '../debts/dto/filter-debts.dto';
+import { UpdateDebtStatusDTO } from '../debts/dto/update-debt.dto';
+
+interface MulterFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  destination: string;
+  filename: string;
+  path: string;
+  buffer: Buffer;
+}
 
 @Controller('debts')
 export class DebtsController {
@@ -41,13 +53,8 @@ export class DebtsController {
 
   @Post('imports')
   @UseInterceptors(FileInterceptor('file'))
-  async importDebts(@UploadedFile() file: any) {
-    try {
-      await this.debtsService.createDebtsFromCSV(file.buffer);
-      return { message: 'Debts imported successfully' };
-    } catch (error) {
-      return { message: 'Error importing debts', error };
-    }
+  async importDebts(@UploadedFile() file: MulterFile): Promise<void> {
+    await this.debtsService.createDebtsFromCSV(file.path);
   }
 
   @Delete('/:debtId')
