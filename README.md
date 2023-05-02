@@ -1,4 +1,4 @@
-## Kanastra Hiring Challenge
+## Kanastra Hiring Challenge 🛫
 
 Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
 
@@ -11,6 +11,12 @@ O PostgreSQL é um sistema de gerenciamento de banco de dados relacional de cód
 Por fim, o React é uma biblioteca JavaScript para construção de interfaces de usuário. Ele permite a criação de componentes reutilizáveis e oferece uma forma eficiente de atualizar a interface de acordo com as mudanças de estado da aplicação. O React também é altamente personalizável e possui uma vasta comunidade de desenvolvedores.
 
 Em resumo, a escolha dessas tecnologias para o desenvolvimento deste projeto foi baseada em sua qualidade, popularidade e facilidade de uso. Além disso, a familiaridade dos desenvolvedores com essas tecnologias permitiu um desenvolvimento mais rápido e eficiente. O resultado final é uma aplicação robusta, escalável e de alta qualidade.
+
+## Prototipagem
+
+Inicialmente, desenvolvi um pequeno protótipo visual da aplicação utilizando a ferramenta Figma, está disponível para [visualização aqui](https://www.figma.com/file/0GnCv9UYloESzoD6aCEwws/Kanastra?node-id=0-1&t=wWplF6SJcCJo0cdP-0). O projeto team design minimalista e visa a utilização intuitiva da plataforma. Além disso, o desenvolvimento da UI utilizou principios de design system e resultou nos components utilizados no projeto. Abaixo, prints do layout.
+
+## Rodando o projeto
 
 Para iniciar o projeto, primeiro é necessário clonar o repositório a partir do Github. Você pode fazer isso executando o seguinte comando em seu terminal:
 
@@ -36,8 +42,6 @@ environment:
      PGADMIN_DEFAULT_EMAIL: <email_do_usuario_do_pgadmin>
      PGADMIN_DEFAULT_PASSWORD: <senha_do_usuario_do_pgadmin>
 ```
-
-## Rodando o projeto
 
 Para inicializar o projeto, utilizamos o Docker Compose. Com ele, você irá inicializar todos os containers necessários para utilizar o projeto. O Docker Compose irá criar um container para o servidor de back-end, um para o front-end, um container para o banco de dados PostgreSQL e um container para o serviço de e-mail (no caso, o Mailtrap).
 
@@ -75,14 +79,11 @@ Após fazer o login, você precisará criar uma conexão com o banco de dados Po
 2.  Na tela de criação de servidor, defina um nome para a conexão e vá para a aba "Connection".
 3.  Na aba "Connection", defina as seguintes informações:
 
-```css
-            - Host name address: \`postgres\`
-            - Port: \`5432\`
-            - Maintenance database: \`postgres\`
-            - Username: \`\<nome_do_usuario_do_postgres>\`
-            - Password: \`\<senha_do_usuario_do_postgres>\`
-
-```
+- Host name/address: \`postgres\`  
+          - Port: \`5432\`  
+          - Maintenance database: \`postgres\`  
+          - Username: \`\<nome_do_usuario_do_postgres>\`  
+          - Password: \`\<senha_do_usuario_do_postgres>\`
 
 Lembre-se de substituir os valores entre "\<>" pelas suas informações de usuário e senha do PostgreSQL.
 
@@ -103,8 +104,6 @@ Após criar a dívida, o e-mail será enviado aos devedores com os débitos em a
 Com essas funcionalidades, a plataforma permite que você gerencie as dívidas de forma eficiente e automatizada, aumentando a produtividade e melhorando a experiência do usuário.
 
 Para dar baixa em um pagamento, você pode escanear o QRCode do e-mail ou acessar a URL. Dessa forma, o pagamento será adicionado à tabela e concluído no sistema. Na tela Pagamentos, é possível visualizar todos os pagamentos que foram concluídos.
-
-## Aproveite a aplicação!
 
 Com isso, concluímos o tutorial de instalação e utilização da plataforma. Espero que você possa aproveitar ao máximo as funcionalidades disponíveis e que possa utilizar a plataforma para gerenciar suas dívidas de forma eficiente e automatizada.
 
