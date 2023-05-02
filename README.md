@@ -14,7 +14,9 @@ Em resumo, a escolha dessas tecnologias para o desenvolvimento deste projeto foi
 
 ## Prototipagem
 
-Inicialmente, desenvolvi um pequeno protótipo visual da aplicação utilizando a ferramenta Figma, está disponível para [visualização aqui](https://www.figma.com/file/0GnCv9UYloESzoD6aCEwws/Kanastra?node-id=0-1&t=wWplF6SJcCJo0cdP-0). O projeto team design minimalista e visa a utilização intuitiva da plataforma. Além disso, o desenvolvimento da UI utilizou principios de design system e resultou nos components utilizados no projeto. Abaixo, prints do layout.
+Inicialmente, desenvolvi um pequeno protótipo visual da aplicação utilizando a ferramenta Figma, que está disponível para visualização através [deste link](https://www.figma.com/file/0GnCv9UYloESzoD6aCEwws/Kanastra?node-id=0-1&t=wWplF6SJcCJo0cdP-0). O projeto tem um design minimalista e busca proporcionar uma utilização intuitiva da plataforma, além de ter sido desenvolvido utilizando princípios de design system, resultando em componentes que foram utilizados no projeto.
+
+Abaixo, você pode conferir alguns prints do layout, que apresentam a interface limpa e organizada da plataforma, visando facilitar o gerenciamento de dívidas de forma simples e prática. Acredito que essa abordagem tornará a experiência do usuário mais agradável e eficiente.
 
 ## Rodando o projeto
 
@@ -80,10 +82,10 @@ Após fazer o login, você precisará criar uma conexão com o banco de dados Po
 3.  Na aba "Connection", defina as seguintes informações:
 
 - Host name/address: \`postgres\`  
-          - Port: \`5432\`  
-          - Maintenance database: \`postgres\`  
-          - Username: \`\<nome_do_usuario_do_postgres>\`  
-          - Password: \`\<senha_do_usuario_do_postgres>\`
+            - Port: \`5432\`  
+            - Maintenance database: \`postgres\`  
+            - Username: \`\<nome_do_usuario_do_postgres>\`  
+            - Password: \`\<senha_do_usuario_do_postgres>\`
 
 Lembre-se de substituir os valores entre "\<>" pelas suas informações de usuário e senha do PostgreSQL.
 
