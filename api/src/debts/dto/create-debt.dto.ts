@@ -1,4 +1,5 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsEnum, IsNotEmpty } from 'class-validator';
+import { DebtStatus } from 'src/debts/debts-status.enum';
 
 export class CreateDebtDto {
   @IsNotEmpty()
@@ -18,4 +19,8 @@ export class CreateDebtDto {
 
   @IsNotEmpty()
   governmentId: number;
+
+  @IsNotEmpty()
+  @IsEnum(DebtStatus)
+  status: DebtStatus;
 }

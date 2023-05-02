@@ -6,8 +6,9 @@ import { GetDebtsFilterDto } from '../debts/dto/filter-debts.dto';
 import { DebtsRepository } from '../debts/debts.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, QueryFailedError } from 'typeorm';
-import * as fs from 'fs';
 import * as csvParser from 'csv-parser';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class DebtsService {
@@ -49,23 +50,36 @@ export class DebtsService {
     });
   }
 
-  async createDebtsFromCSV(filePath: string): Promise<void> {
-    const stream = fs.createReadStream(filePath);
-    const parser = stream.pipe(csvParser());
+  async createDebtsFromCSV(fileBuffer: Buffer): Promise<void> {
+    const tempFilePath = path.join(__dirname, '..', 'temp', 'debts.csv');
+    fs.writeFileSync(tempFilePath, fileBuffer);
 
-    for await (const row of parser) {
-      const createDebtDto = {
-        debtId: row.debtId,
-        name: row.name,
-        email: row.email,
-        debtAmount: row.debtAmount,
-        debtDueDate: new Date(row.debtDueDate),
-        status: row.status,
-        governmentId: row.governmentId,
-      };
+    const debtsToCreate: CreateDebtDto[] = [];
 
-      await this.debtsRepository.createDebt(createDebtDto);
-    }
+    fs.createReadStream(tempFilePath)
+      .pipe(csvParser())
+      .on('data', (data: any) => {
+        // Mapeia os campos do CSV para o DTO de criação de dívidas
+        const createDebtDto: CreateDebtDto = {
+          debtId: data.debtId,
+          name: data.name,
+          email: data.email,
+          debtAmount: data.debtAmount,
+          debtDueDate: new Date(data.debtDueDate),
+          governmentId: data.governmentId,
+          status: DebtStatus.CREATED,
+        };
+
+        debtsToCreate.push(createDebtDto);
+      })
+      .on('end', async () => {
+        // Cria as dívidas no banco de dados
+        for (const createDebtDto of debtsToCreate) {
+          await this.createDebt(createDebtDto);
+        }
+
+        fs.unlinkSync(tempFilePath);
+      });
   }
 
   async deleteDebt(debtId: number): Promise<void> {

@@ -5,7 +5,7 @@ FROM node:14-alpine
 WORKDIR /app
 
 # Copia o arquivo package.json e o arquivo yarn.lock para o diretório de trabalho
-COPY package.json yarn.lock ./
+COPY package.json ./
 
 # Instala as dependências do aplicativo
 RUN yarn install
