@@ -7,7 +7,7 @@ import { PaymentsService } from '../payments/payments.service';
 @Module({
   controllers: [PaymentsController],
   providers: [PaymentsService],
-  exports: [PaymentsModule],
+  exports: [PaymentsService],
   imports: [TypeOrmModule.forFeature([PaymentsRepository])],
 })
 export class PaymentsModule {}

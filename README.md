@@ -1,4 +1,4 @@
-## Kanastra Hiring Challenge 💸
+## Kanastra Boletos 💸
 
 Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
 
@@ -17,6 +17,18 @@ Em resumo, a escolha dessas tecnologias para o desenvolvimento deste projeto foi
 Inicialmente, desenvolvi um pequeno protótipo visual da aplicação utilizando a ferramenta Figma, que está disponível para visualização através [deste link](https://www.figma.com/file/0GnCv9UYloESzoD6aCEwws/Kanastra?node-id=0-1&t=wWplF6SJcCJo0cdP-0). O projeto tem um design minimalista e busca proporcionar uma utilização intuitiva da plataforma, além de ter sido desenvolvido utilizando princípios de design system, resultando em componentes que foram utilizados no projeto.
 
 Abaixo, você pode conferir alguns prints do layout, que apresentam a interface limpa e organizada da plataforma, visando facilitar o gerenciamento de dívidas de forma simples e prática. Acredito que essa abordagem tornará a experiência do usuário mais agradável e eficiente.
+
+#### Listagem de débitos e import do arquivo .csv
+
+![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/46555d9bb98154441c85fd7dda8bef08f2d79a5cbe779e68.png)
+
+A tela de débitos lista todos os débitos do sistema, nela também é possível importar um arquivo .csv para criação dos novos débitos e solicitar o envio de e-mail para  o débito selecionado. Após click na url do e-mail ou scan no QRCode, o débito é validado como pago e é possível visualizar nessa listagem o novo status do item. Abaixo exemplo da validação no pagamento de teste do débito:
+
+![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/9921ea48a68ebd13efbe91b2d2dfc393b69c04d9e52f225e.png)
+
+O e-mail que é enviado ao servidor de teste permite o scan do QRCode ou click pelo navegador. Para validar o débito pelo celular, você deve passar as configurações de rede nabs variáveis de ambiente.
+
+![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/bc92d391ce8c7fbd748f2e43abd66e4c6bcd7f50f62c3c71.png)
 
 ## Rodando o projeto
 
@@ -77,19 +89,21 @@ Ao acessar o pgAdmin, você será solicitado a fazer o login. Para fazer o login
 
 Após fazer o login, você precisará criar uma conexão com o banco de dados PostgreSQL. Para isso, siga os passos abaixo:
 
-1.  Clique com o botão direito do mouse em "Servers" no painel esquerdo do pgAdmin e selecione "Create" > "Server".
-2.  Na tela de criação de servidor, defina um nome para a conexão e vá para a aba "Connection".
-3.  Na aba "Connection", defina as seguintes informações:
+- Clique com o botão direito do mouse em "Servers" no painel esquerdo do pgAdmin e selecione "Create" > "Server".
+- Na tela de criação de servidor, defina um nome para a conexão e vá para a aba "Connection"
+- Na aba "Connection", defina as seguintes informações:
 
-- Host name/address: \`postgres\`  
-            - Port: \`5432\`  
-            - Maintenance database: \`postgres\`  
-            - Username: \`\<nome_do_usuario_do_postgres>\`  
-            - Password: \`\<senha_do_usuario_do_postgres>\`
+```css
+		  - Host name/address: `postgres`
+          - Port: `5432`
+          - Maintenance database: `postgres`
+          - Username: `<nome_do_usuario_do_postgres>`
+          - Password: `<senha_do_usuario_do_postgres>`
+```
 
 Lembre-se de substituir os valores entre "\<>" pelas suas informações de usuário e senha do PostgreSQL.
 
-4. Clique em "Save" para criar a conexão.
+- Clique em "Save" para criar a conexão.
 
 Com a conexão criada, você poderá gerenciar o banco de dados PostgreSQL utilizando o pgAdmin.
 
@@ -108,7 +122,3 @@ Com essas funcionalidades, a plataforma permite que você gerencie as dívidas d
 Para dar baixa em um pagamento, você pode escanear o QRCode do e-mail ou acessar a URL. Dessa forma, o pagamento será adicionado à tabela e concluído no sistema. Na tela Pagamentos, é possível visualizar todos os pagamentos que foram concluídos.
 
 Com isso, concluímos o tutorial de instalação e utilização da plataforma. Espero que você possa aproveitar ao máximo as funcionalidades disponíveis e que possa utilizar a plataforma para gerenciar suas dívidas de forma eficiente e automatizada.
-
-Gostaria de aproveitar para agradecer a oportunidade de participar do desafio e pela chance de contribuir com este projeto. Caso tenha alguma dúvida ou sugestão, não hesite em entrar em contato.
-
-Mais uma vez, muito obrigada pela oportunidade.

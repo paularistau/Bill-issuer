@@ -1,25 +1,122 @@
 
   <head >
-    <title  >Sua fatura chegou!</title>
+    <title>Sua fatura chegou!</title>
   </head>
   <body>
-    <div style="height: 180; width: 100%; background: #5894C8">
-    <h1 style="color: #ffffff;">Sua fatura chegou!</h1>
-    </div>
     <div>
-      <p><strong>Detalhes do pagamento referente a cobrança {{debtId}}</strong></p>
-      <p>Banco:BB</p>
-      <p>Vencimento: {{debtDueDate}}</p>
-      <image src={{qrcode}}></image>
-      <p>Valor total da fatura: {{debtAmount}}</p>
+      <h1 class="header" >
+        Sua fatura <br> chegou!
+      </h1>
     </div>
-    <div>
-      <p><strong>Instruções:</strong></p>
-      <ol>
-        <li>Escaneei o QR Code ou acesse a url:</li>
-        <a href="http://localhost:3000/payment/{{debtId}}">Clique aqui para efetuar o pagamento</a>
-        <li>Acesse a url</li>
-        <li>Visualize o pagamento ser processado no sistema</li>
-      </ol>
+    <div class="message">
+      <p class='t1'><strong>Detalhes do pagamento referente a cobrança {{debtId}}</strong></p>
+      <div class='image-container'>
+        
+        <image src={{qrcode}} class='image'/>
+
+        <p class='t2'>Cliente: {{name}}</p>
+        <p class='t2'>Código bancário: {{governmentId}}</p>
+        <p class='t2'>Vencimento: {{debtDueDate}} </p>
+        <p class='t2'>Código do pagamento: {{debtId}}</p>
+        
+        <div class='total-amount-div'>
+          <p class='t2'>Valor total da fatura:</p>
+          <p class='h2'>{{debtAmount}}</p>
+        </div>
+      </div>
+
+      <div class='instructions-container'>
+        <p class='t3'><strong>Instruções:</strong></p>
+        <ol class='t4'>
+          <li>Escaneei o QR Code ou acesse a url:</li>
+          <a href={{url}}>Clique aqui para efetuar o pagamento</a>
+          <li>Acesse a url</li>
+          <li>Visualize o pagamento ser processado no sistema</li>
+        </ol>
+      </div>
     </div>
   </body>
+
+<style>
+  body{
+    font-family: sans-serif;
+    padding:8px;
+  }
+  .header{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 58px;
+    color: #16392A;
+    margin-bottom: 24px
+  }
+  
+  .message{
+    margin-top: 54px;
+    padding: 24px;
+  }
+  .h2{
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 29px;
+    text-align: center;
+    color: #16392A;
+  }
+  
+  .t1{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+  }
+  
+  .t2{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+    margin-top: 6px;
+    margin-bottom: 0;
+  }
+  
+  .t3{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+  }
+  
+  .t4{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 15px;
+    color: #000000;
+    padding-left: 24px;
+  }
+  
+  .image{
+    width: 176px;
+    height: auto;
+  }
+
+  .image-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .total-amount-div{
+    margin-top: 24px
+  }
+  
+  .instructions-container{
+    margin-top: 0;
+  }
+</style>

@@ -4,22 +4,20 @@ import Routes from './routes';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/global';
 import { colors } from './constants';
-import history from './services/history';
-import logo from './logo.svg';
-import { CustomRouter } from './routes/customRouter';
-import Layout from './layout';
 import { ModalProvider } from './hooks/useModal';
+import history from './services/history';
+import Layout from './layout';
 
 function App() {
   return (
-    <>
+    <Router history={history}>
       <ModalProvider>
         <ThemeProvider theme={colors}>
           <Routes />
           <GlobalStyle />
         </ThemeProvider>
       </ModalProvider>
-    </>
+    </Router>
   );
 }
 

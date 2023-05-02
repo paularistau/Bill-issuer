@@ -57,6 +57,7 @@ services:
       MAILTRAP_PORT: 2525
       MAILTRAP_USERNAME: f978ef6b6c3123
       MAILTRAP_PASSWORD: 3b620b5e137bbf
+      LOCAL_IP_ADDRESS: http://172.19.0.4:3434/
     volumes:
       - ./api:/app
       - type: bind

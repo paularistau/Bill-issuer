@@ -6,7 +6,7 @@ import { IMenuProps } from './types';
 
 function MenuComponent({ menu, selected }: IMenuProps) {
   const handleMenuClick = () => {
-    history.push(menu.pathName);
+    return history.push(menu.pathName);
   };
 
   return (

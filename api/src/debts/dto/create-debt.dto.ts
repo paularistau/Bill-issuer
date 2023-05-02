@@ -1,5 +1,5 @@
 import { IsEnum, IsNotEmpty } from 'class-validator';
-import { DebtStatus } from 'src/debts/debts-status.enum';
+import { DebtStatus } from '../../debts/debts-status.enum';
 
 export class CreateDebtDto {
   @IsNotEmpty()
