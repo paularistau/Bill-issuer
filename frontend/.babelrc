@@ -1,0 +1,8 @@
+{
+  "presets": ["@babel/env", "@babel/react", "@babel/typescript"],
+  "plugins": [
+    "@babel/proposal-object-rest-spread",
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    ["@babel/plugin-transform-runtime", { "regenerator": true }]
+  ]
+}

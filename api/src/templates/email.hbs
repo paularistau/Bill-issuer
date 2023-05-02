@@ -1,0 +1,25 @@
+
+  <head >
+    <title  >Sua fatura chegou!</title>
+  </head>
+  <body>
+    <div style="height: 180; width: 100%; background: #5894C8">
+    <h1 style="color: #ffffff;">Sua fatura chegou!</h1>
+    </div>
+    <div>
+      <p><strong>Detalhes do pagamento referente a cobrança {{debtId}}</strong></p>
+      <p>Banco:BB</p>
+      <p>Vencimento: {{debtDueDate}}</p>
+      <image src={{qrcode}}></image>
+      <p>Valor total da fatura: {{debtAmount}}</p>
+    </div>
+    <div>
+      <p><strong>Instruções:</strong></p>
+      <ol>
+        <li>Escaneei o QR Code ou acesse a url:</li>
+        <a href="http://localhost:3000/payment/{{debtId}}">Clique aqui para efetuar o pagamento</a>
+        <li>Acesse a url</li>
+        <li>Visualize o pagamento ser processado no sistema</li>
+      </ol>
+    </div>
+  </body>
