@@ -22,7 +22,10 @@ Abaixo, você pode conferir alguns prints do layout, que apresentam a interface 
 
 ![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/46555d9bb98154441c85fd7dda8bef08f2d79a5cbe779e68.png)
 
-A tela de débitos lista todos os débitos do sistema, nela também é possível importar um arquivo .csv para criação dos novos débitos e solicitar o envio de e-mail para  o débito selecionado. Após click na url do e-mail ou scan no QRCode, o débito é validado como pago e é possível visualizar nessa listagem o novo status do item. Abaixo exemplo da validação no pagamento de teste do débito:
+A tela de débitos lista todos os débitos do sistema, nela também é possível importar um arquivo .csv para criação dos novos débitos. Para testar a funcionalidade, está disponibilizado na pasta ./examples 2 arquivos .csv com a formatação aceita pela Entity do banco. Já para
+ solicitar o envio de e-mail, basta clicar no botão do débito selecionado. 
+
+Após click na url do e-mail ou scan no QRCode, o débito é validado como pago e é possível visualizar nessa listagem o novo status do item. Abaixo exemplo da validação no pagamento de teste do débito:
 
 ![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/9921ea48a68ebd13efbe91b2d2dfc393b69c04d9e52f225e.png)
 
