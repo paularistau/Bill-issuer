@@ -53,8 +53,8 @@ export class DebtsController {
 
   @Post('imports')
   @UseInterceptors(FileInterceptor('file'))
-  async importDebts(@UploadedFile() file: MulterFile): Promise<void> {
-    await this.debtsService.createDebtsFromCSV(file.path);
+  async importDebts(@UploadedFile() file: any): Promise<void> {
+    await this.debtsService.createDebtsFromCSV(file.buffer);
   }
 
   @Delete('/:debtId')

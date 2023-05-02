@@ -2,19 +2,10 @@ import styled from "styled-components";
 
 export const HeaderContainer = styled.div`
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  flex-direction: column;
-  width: 100%;
-`;
-
-export const SearchArea = styled.div`
-  display: flex;
   align-items: center;
   justify-content: space-between;
   margin-top: 16px;
-  margin-left: -2%;
-  width: 102%;
+  width: 100%;
 `;
 
 export const InputArea = styled.div`

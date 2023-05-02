@@ -1,9 +1,7 @@
 version: '3'
-
 services:
   postgres:
     image: postgres:latest
-    restart: always
     environment:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
@@ -15,15 +13,37 @@ services:
 
   pgadmin:
     image: dpage/pgadmin4:latest
-    restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: user@domain.com
       PGADMIN_DEFAULT_PASSWORD: admin
     ports:
       - '8080:80'
 
-  api:
-    build: ./api
+  frontend:
+    image: node:16.0.0
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      cache_from:
+        - node:latest
+    ports:
+      - '3434:3000'
+    environment:
+      NODE_ENV: development
+      REACT_APP_API_URL: http://localhost:3000
+    volumes:
+      - ./frontend:/app
+      - type: bind
+        source: ./frontend/node_modules
+        target: /app/node_modules
+
+  backend:
+    image: node:16.0.0
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+      cache_from:
+        - node:latest
     ports:
       - '3000:3000'
     environment:
@@ -37,20 +57,10 @@ services:
       MAILTRAP_PORT: 2525
       MAILTRAP_USERNAME: f978ef6b6c3123
       MAILTRAP_PASSWORD: 3b620b5e137bbf
-    depends_on:
-      - postgres
     volumes:
       - ./api:/app
-      - /app/node_modules
-
-  frontend:
-    build: ./frontend
-    restart: always
-    ports:
-      - '3434:3000'
-    environment:
-      NODE_ENV: development
-      REACT_APP_API_URL: http://api:3000
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+      - type: bind
+        source: ./api/node_modules
+        target: /app/node_modules
+    depends_on:
+      - postgres

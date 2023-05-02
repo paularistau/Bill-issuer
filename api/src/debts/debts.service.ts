@@ -6,8 +6,9 @@ import { GetDebtsFilterDto } from '../debts/dto/filter-debts.dto';
 import { DebtsRepository } from '../debts/debts.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Connection, QueryFailedError } from 'typeorm';
-import * as fs from 'fs';
 import * as csvParser from 'csv-parser';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class DebtsService {
@@ -27,7 +28,6 @@ export class DebtsService {
     if (!found) {
       throw new NotFoundException(`Debt with id ${debtId} not found`);
     }
-
     return found;
   }
 
@@ -37,6 +37,9 @@ export class DebtsService {
         const user = this.debtsRepository.create(createDebtDto);
 
         await transactionManager.save(user);
+
+        // if (createDebtDto.status === DebtStatus.CREATED)
+        //   await this.emailService.sendMail(createDebtDto.debtId);
 
         return user;
       } catch (error) {
@@ -49,23 +52,47 @@ export class DebtsService {
     });
   }
 
-  async createDebtsFromCSV(filePath: string): Promise<void> {
-    const stream = fs.createReadStream(filePath);
-    const parser = stream.pipe(csvParser());
+  async createDebtsFromCSV(fileBuffer: Buffer): Promise<void> {
+    const filePath = path.join(__dirname, '/debts.csv');
 
-    for await (const row of parser) {
-      const createDebtDto = {
-        debtId: row.debtId,
-        name: row.name,
-        email: row.email,
-        debtAmount: row.debtAmount,
-        debtDueDate: new Date(row.debtDueDate),
-        status: row.status,
-        governmentId: row.governmentId,
-      };
+    fs.writeFileSync(filePath, fileBuffer);
 
-      await this.debtsRepository.createDebt(createDebtDto);
-    }
+    console.log('createDebtsFromCSV', filePath);
+
+    const debtsToCreate: CreateDebtDto[] = [];
+
+    fs.createReadStream(filePath)
+      .pipe(csvParser())
+      .on('data', async (data: any) => {
+        // Mapeia os campos do CSV para o DTO de criação de dívidas
+        const existingDebt = await this.debtsRepository.findOne(data.debtId);
+        if (existingDebt) {
+          console.log(
+            `Debt with debtId ${data.debtId} already exists, skipping...`,
+          );
+          return;
+        }
+
+        const createDebtDto: CreateDebtDto = {
+          debtId: data.debtId,
+          name: data.name,
+          email: data.email,
+          debtAmount: data.debtAmount,
+          debtDueDate: new Date(data.debtDueDate),
+          governmentId: data.governmentId,
+          status: DebtStatus.CREATED,
+        };
+
+        debtsToCreate.push(createDebtDto);
+      })
+      .on('end', async () => {
+        // Cria as dívidas no banco de dados
+        for (const createDebtDto of debtsToCreate) {
+          await this.createDebt(createDebtDto);
+        }
+
+        fs.unlinkSync(filePath);
+      });
   }
 
   async deleteDebt(debtId: number): Promise<void> {
