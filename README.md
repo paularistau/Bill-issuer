@@ -111,7 +111,7 @@ Com a conexão criada, você poderá gerenciar o banco de dados PostgreSQL utili
 
 Com o Docker Compose em execução e o pgAdmin configurado, você pode acessar o frontend da aplicação em seu navegador em http://localhost:3434/debts.
 
-ar o frontend, você poderá utilizar os recursos da plataforma. A aplicação permite que você crie, edite, liste e delete dívidas. Além disso, a plataforma possui uma funcionalidade de envio de e-mail de notificação para os devedores.
+Ao rodar o frontend, você poderá utilizar os recursos da plataforma. A aplicação permite que você crie, edite, liste e delete dívidas. Além disso, a plataforma possui uma funcionalidade de envio de e-mail de notificação para os devedores.
 
 Para criar uma nova dívida, basta clicar no botão "Novo Débito" na página /debts. Na tela de criação de dívida, você deverá informar o nome do devedor, e-mail, CPF/CNPJ, o valor da dívida e a data de vencimento. Além disso, você poderá importar um arquivo .csv para realizar um bulk upload de débitos na aplicação. Sugerimos que utilize o arquivo na pasta api/examples para facilitar a padronização dos dados na formatação adequada às entidades do TypeORM.
 
