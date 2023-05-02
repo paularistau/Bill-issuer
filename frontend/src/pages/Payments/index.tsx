@@ -65,7 +65,7 @@ export const Payments = () => {
                     {payments.map((item) => (
                       <PaymentLine
                         key={item?.debtId}
-                        onClick={() => console.log(item)}
+                        onClick={() => {}}
                         payment={item}
                       />
                     ))}

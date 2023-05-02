@@ -18,7 +18,6 @@ export class EmailController {
   @Get('/:id')
   async enviarBoletoPorEmail(@Param('id') id: number): Promise<EmailResult> {
     try {
-      console.log('enviarBoletoPorEmail ID =>', id, typeof id);
       const debt = await this.debtsService.getDebtById(Number(id));
 
       await this.mailService.sendMail(debt.debtId);

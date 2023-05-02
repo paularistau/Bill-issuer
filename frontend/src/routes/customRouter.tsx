@@ -16,10 +16,6 @@ export const CustomRouter = ({ history, ...props }) => {
 
   useLayoutEffect(() => history.listen(updateState), [history, updateState]);
 
-  useEffect(() => {
-    console.log(state, history);
-  }, [state, history]);
-
   return (
     <Router
       {...props}

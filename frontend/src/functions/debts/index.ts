@@ -20,7 +20,6 @@ export const handleSubmitCSV = async (event, file) => {
       },
     });
 
-    console.log(response)
     return response
   } catch (error) {
     console.error('Unable to import DATA', error);
@@ -32,7 +31,7 @@ export const handleSubmitCSV = async (event, file) => {
 export const sendEmail = async (id: number) => {
   try {
     const response = await axios.get(`http://localhost:3000/email/${id}`);
-    console.log(response.data);
+
     return response.data;
   } catch (error) {
     console.error('Erro ao enviar boleto:', error);
