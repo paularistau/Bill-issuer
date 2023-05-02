@@ -57,7 +57,7 @@ environment:
      PGADMIN_DEFAULT_PASSWORD: <senha_do_usuario_do_pgadmin>
 ```
 
-Para inicializar o projeto, utilizamos o Docker Compose. Com ele, você irá inicializar todos os containers necessários para utilizar o projeto. O Docker Compose irá criar um container para o servidor de back-end, um para o front-end, um container para o banco de dados PostgreSQL e um container para o serviço de e-mail (no caso, o Mailtrap).
+Para inicializar o projeto, utilizamos o Docker Compose. Com ele, você irá inicializar todos os containers necessários para utilizar o projeto. O Docker Compose irá criar um container para o servidor de back-end, um para o front-end, um container para o banco de dados PostgreSQL e a interface do pgAdmin.
 
 Para executar o projeto com o Docker Compose, basta executar o comando abaixo no diretório raiz do projeto:
 
