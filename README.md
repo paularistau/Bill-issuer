@@ -1,6 +1,6 @@
 ## Kanastra Boletos 💸
 
-Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
+Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL, Docker e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
 
 O Nestjs é um framework para Node.js que permite a criação de aplicações escaláveis e eficientes. Ele utiliza uma arquitetura modular baseada em módulos, o que torna o código mais organizado e fácil de manter. Além disso, o Nestjs é altamente configurável e extensível, permitindo que os desenvolvedores personalizem a aplicação de acordo com suas necessidades.
 
