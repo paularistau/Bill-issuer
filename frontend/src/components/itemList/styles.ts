@@ -43,24 +43,11 @@ export const Container = styled.div<{ hiddenNavigation?: boolean }>`
   margin-bottom: 16px; 
 `;
 
-export const Header = styled.div`
-  display: flex;
-  align-items: center;
-  width: fit-content;
-  font-style: normal;
-  font-weight: 300;
-  font-size: 10px;
-  line-height: 15px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid rgba(217, 217, 217, 0.4);
-  padding-bottom: 12px;
-  color: ${(props) => props.theme.textGray};
-  margin-bottom: 16px;
-  box-shadow: 0px 2px 4px #00000050;
+export const HeaderContainer = styled.div`
+padding: 16px;
 `;
 
-export const Body = styled.section<{ columnsSizes: string }>`
+export const BodyLine = styled.section<{ columnsSizes: string }>`
   &.grid {
     display: grid;
     width: 100%;
@@ -73,6 +60,7 @@ export const Body = styled.section<{ columnsSizes: string }>`
   &.gap{
     column-gap: 32px;
   }
+
 `;
 
 export const Title = styled.text`
@@ -108,6 +96,7 @@ export const HeaderText = styled.text`
   font-size: 14px;
   line-height: 21px;
   color: ${(props) => props.theme.textGray};
+
 `;
 
 export const LineViewText = styled.text`

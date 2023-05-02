@@ -3,7 +3,6 @@ import history from '../../../../services/history';
 
 import { Container, Text, Name } from './styles';
 import { IMenuProps } from './types';
-import { useLocation } from 'react-router-dom';
 
 function MenuComponent({ menu, selected }: IMenuProps) {
   const handleMenuClick = () => {

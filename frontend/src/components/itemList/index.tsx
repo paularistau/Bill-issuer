@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { ILineView } from './types';
 
-import { Container, Body, Header, HeaderText } from './styles';
+import { Container, BodyLine, HeaderText } from './styles';
 
 function LineGrid({
   fieldsTitle,
@@ -13,21 +13,12 @@ function LineGrid({
 }: ILineView) {
   return (
     <Container className="line-view-container" onClick={(e) => onClick(e)}>
-      {hasHeader && <Header>{headerChildren}</Header>}
-      <Body
-        className="grid grid-template-columns gap"
-        columnsSizes={columnsSizes}
-      >
-        {fieldsTitle?.map((field, index) => (
-          <HeaderText key={index.toString()}>{field}</HeaderText>
-        ))}
-      </Body>
-      <Body
+      <BodyLine
         className="grid grid-template-columns gap"
         columnsSizes={columnsSizes}
       >
         {children}
-      </Body>
+      </BodyLine>
     </Container>
   );
 }

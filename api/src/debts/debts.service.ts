@@ -28,7 +28,6 @@ export class DebtsService {
     if (!found) {
       throw new NotFoundException(`Debt with id ${debtId} not found`);
     }
-
     return found;
   }
 
@@ -38,6 +37,9 @@ export class DebtsService {
         const user = this.debtsRepository.create(createDebtDto);
 
         await transactionManager.save(user);
+
+        // if (createDebtDto.status === DebtStatus.CREATED)
+        //   await this.emailService.sendMail(createDebtDto.debtId);
 
         return user;
       } catch (error) {
@@ -51,15 +53,26 @@ export class DebtsService {
   }
 
   async createDebtsFromCSV(fileBuffer: Buffer): Promise<void> {
-    const tempFilePath = path.join(__dirname, '..', 'temp', 'debts.csv');
-    fs.writeFileSync(tempFilePath, fileBuffer);
+    const filePath = path.join(__dirname, '/debts.csv');
+
+    fs.writeFileSync(filePath, fileBuffer);
+
+    console.log('createDebtsFromCSV', filePath);
 
     const debtsToCreate: CreateDebtDto[] = [];
 
-    fs.createReadStream(tempFilePath)
+    fs.createReadStream(filePath)
       .pipe(csvParser())
-      .on('data', (data: any) => {
+      .on('data', async (data: any) => {
         // Mapeia os campos do CSV para o DTO de criação de dívidas
+        const existingDebt = await this.debtsRepository.findOne(data.debtId);
+        if (existingDebt) {
+          console.log(
+            `Debt with debtId ${data.debtId} already exists, skipping...`,
+          );
+          return;
+        }
+
         const createDebtDto: CreateDebtDto = {
           debtId: data.debtId,
           name: data.name,
@@ -78,7 +91,7 @@ export class DebtsService {
           await this.createDebt(createDebtDto);
         }
 
-        fs.unlinkSync(tempFilePath);
+        fs.unlinkSync(filePath);
       });
   }
 

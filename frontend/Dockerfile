@@ -1,11 +1,7 @@
-FROM node:14-alpine
-
+FROM node:16.0.0
 WORKDIR /app
-
 COPY package*.json ./
-
-RUN npm install
-
+RUN yarn install
 COPY . .
-
-CMD ["npm", "start"]
+EXPOSE 3434
+CMD ["yarn", "start"]`

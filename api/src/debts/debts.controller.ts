@@ -54,7 +54,6 @@ export class DebtsController {
   @Post('imports')
   @UseInterceptors(FileInterceptor('file'))
   async importDebts(@UploadedFile() file: any): Promise<void> {
-    console.log(file);
     await this.debtsService.createDebtsFromCSV(file.buffer);
   }
 

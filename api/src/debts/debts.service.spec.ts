@@ -100,22 +100,4 @@ describe('DebtsService', () => {
       );
     });
   });
-
-  // describe('updateDebtStatus', () => {
-  //   it('updates a debt status', async () => {
-  //     const save = jest.fn().mockResolvedValue(true);
-
-  //     debtsService.getTaskById = jest.fn().mockResolvedValue({
-  //       status: DebtStatus.CREATED,
-  //       save,
-  //     });
-
-  //     expect(debtsService.getTaskById).not.toHaveBeenCalled();
-  //     expect(save).not.toHaveBeenCalled();
-  //     const result = await debtsService.updateDebtStatus(1, DebtStatus.CREATED);
-  //     expect(debtsService.getTaskById).toHaveBeenCalled();
-  //     expect(save).toHaveBeenCalled();
-  //     expect(result.status).toEqual(DebtStatus.CREATED);
-  //   });
-  // });
 });

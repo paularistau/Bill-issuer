@@ -1,7 +1,6 @@
 export interface IHeader {
   title: string;
-  handleSearch: (search: string) => void;
-  handleNewDebt?: () => void;
+  handleNewDebt?: (value) => void;
   isLoading: boolean;
   hasNew: boolean;
 }
