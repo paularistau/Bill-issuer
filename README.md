@@ -1,4 +1,4 @@
-## Kanastra Hiring Challenge 🛫
+## Kanastra Hiring Challenge
 
 Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
 
@@ -36,8 +36,6 @@ environment:
      PGADMIN_DEFAULT_EMAIL: <email_do_usuario_do_pgadmin>
      PGADMIN_DEFAULT_PASSWORD: <senha_do_usuario_do_pgadmin>
 ```
-
-
 
 ## Rodando o projeto
 
@@ -77,11 +75,14 @@ Após fazer o login, você precisará criar uma conexão com o banco de dados Po
 2.  Na tela de criação de servidor, defina um nome para a conexão e vá para a aba "Connection".
 3.  Na aba "Connection", defina as seguintes informações:
 
-- Host name/address: \`postgres\`  
-          - Port: \`5432\`  
-          - Maintenance database: \`postgres\`  
-          - Username: \`\<nome_do_usuario_do_postgres>\`  
-          - Password: \`\<senha_do_usuario_do_postgres>\`
+```css
+            - Host name address: \`postgres\`
+            - Port: \`5432\`
+            - Maintenance database: \`postgres\`
+            - Username: \`\<nome_do_usuario_do_postgres>\`
+            - Password: \`\<senha_do_usuario_do_postgres>\`
+
+```
 
 Lembre-se de substituir os valores entre "\<>" pelas suas informações de usuário e senha do PostgreSQL.
 
@@ -102,6 +103,8 @@ Após criar a dívida, o e-mail será enviado aos devedores com os débitos em a
 Com essas funcionalidades, a plataforma permite que você gerencie as dívidas de forma eficiente e automatizada, aumentando a produtividade e melhorando a experiência do usuário.
 
 Para dar baixa em um pagamento, você pode escanear o QRCode do e-mail ou acessar a URL. Dessa forma, o pagamento será adicionado à tabela e concluído no sistema. Na tela Pagamentos, é possível visualizar todos os pagamentos que foram concluídos.
+
+## Aproveite a aplicação!
 
 Com isso, concluímos o tutorial de instalação e utilização da plataforma. Espero que você possa aproveitar ao máximo as funcionalidades disponíveis e que possa utilizar a plataforma para gerenciar suas dívidas de forma eficiente e automatizada.
 
