@@ -94,7 +94,7 @@ Após fazer o login, você precisará criar uma conexão com o banco de dados Po
 - Na aba "Connection", defina as seguintes informações:
 
 ```css
-		  - Host name/address: `postgres`
+	  - Host name/address: `postgres`
           - Port: `5432`
           - Maintenance database: `postgres`
           - Username: `<nome_do_usuario_do_postgres>`
