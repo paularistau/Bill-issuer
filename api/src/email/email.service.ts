@@ -24,10 +24,12 @@ export class EmailService {
         debtId: debtId,
         name: debt.name,
         email: debt.email,
+        governmentId: debt.governmentId,
         debtAmount: debt.debtAmount,
-        debtDueDate: debt.debtDueDate,
+        debtDueDate: debt.debtDueDate.toLocaleDateString('pt-BR'),
         status: debt.status,
         qrcode: qrcode,
+        url: `http://localhost:3434/payments/${debtId}`,
       },
     };
 

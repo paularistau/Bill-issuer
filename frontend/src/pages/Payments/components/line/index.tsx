@@ -8,25 +8,19 @@ import {
   Text,
 } from '../../../../components/itemList/styles';
 import { LineView } from '../../../../components/itemList';
+import { IPayment } from '../../../../interfaces/payments';
 
-function PaymentComponent({ debt, onClick }) {
-  const fieldTitles: string[] = [];
+interface IDebtComponent {
+  payment: IPayment;
+  onClick: (value: any) => void;
+}
 
+function PaymentComponent({ payment, onClick }: IDebtComponent) {
   return (
-    <LineView
-      onClick={(e) => onClick(e)}
-      hasHeader={true}
-      headerChildren={<></>}
-      fieldsTitle={fieldTitles}
-      columnsSizes="8% 20% 22% 20% 15% auto"
-    >
-      <LineViewText></LineViewText>
-      <LineViewText></LineViewText>
-      <LineViewText className="emailField"></LineViewText>
-      <LineViewText></LineViewText>
-      <LineViewStatus>
-        <Text></Text>
-      </LineViewStatus>
+    <LineView onClick={(e) => onClick(e)} columnsSizes="33% 33% 34%">
+      <LineViewText>{payment.debtId}</LineViewText>
+      <LineViewText>{payment.paidBy}</LineViewText>
+      <LineViewText>{payment.paidAt}</LineViewText>
     </LineView>
   );
 }

@@ -4,7 +4,7 @@ import { DebtsRepository } from './debts.repository';
 import { NotFoundException } from '@nestjs/common';
 import { GetDebtsFilterDto } from '../debts/dto/filter-debts.dto';
 import { DebtStatus } from '../debts/debts-status.enum';
-import { Debt } from 'src/debts/debts.entity';
+import { Debt } from '../debts/debts.entity';
 
 const mockDebtRepository = () => ({
   getDebts: jest.fn(),

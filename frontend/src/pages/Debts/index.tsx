@@ -27,7 +27,7 @@ export const Debts = memo(() => {
     'ID',
     'Cliente',
     'E-mail',
-    'Documento ID',
+    'Código bancário',
     'Valor total',
     'Vencimento',
     'Status',

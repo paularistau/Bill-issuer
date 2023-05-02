@@ -23,17 +23,17 @@ export class PaymentsRepository extends Repository<Payment> {
     return payments;
   }
 
-  async createPayment(CreatePaymentDto: CreatePaymentDto): Promise<Payment> {
-    const { debtId, paidBy } = CreatePaymentDto;
+  async createPayment(createPaymentDto: CreatePaymentDto): Promise<Payment> {
+    const { debtId, paidAt, paidBy } = createPaymentDto;
 
-    const debt = this.create({
+    const payment = await this.create({
       debtId,
       paidBy,
-      paidAt: new Date(),
+      paidAt,
     });
 
-    await this.save(debt);
+    await this.save(payment);
 
-    return debt;
+    return payment;
   }
 }

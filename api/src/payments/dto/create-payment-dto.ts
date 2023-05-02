@@ -6,4 +6,7 @@ export class CreatePaymentDto {
 
   @IsNotEmpty()
   paidBy: string;
+
+  @IsNotEmpty()
+  paidAt: Date;
 }

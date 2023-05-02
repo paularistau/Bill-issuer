@@ -17,6 +17,7 @@ import { colors } from '../../../../constants';
 import Tooltip from '../../../../components/Tooltip';
 import { PrimaryButton } from '../../../../components/button';
 import { sendEmail } from '../../../../functions/debts';
+import { toast } from 'react-toastify';
 
 interface IDebtComponent {
   debt: IDebt;
@@ -24,6 +25,13 @@ interface IDebtComponent {
 }
 
 function DebtComponent({ debt, onClick }: IDebtComponent) {
+  const notifySuccess = () => {
+    toast.success('E-mail enviado ao destinatário', { autoClose: 600 });
+  };
+  const notifyError = () => {
+    toast.error('Erro ao enviar E-mail ao destinatário', { autoClose: 600 });
+  };
+
   const status = useMemo(() => {
     if (debt.status.toString() === 'PAYED') {
       return (
@@ -40,8 +48,19 @@ function DebtComponent({ debt, onClick }: IDebtComponent) {
   }, [debt]);
 
   const handleEmail = useCallback(async (id) => {
-    const response = await sendEmail(debt.debtId);
-    return response;
+    try {
+      const response = await sendEmail(debt.debtId);
+
+      if (response.error) {
+        notifyError();
+      } else {
+        notifySuccess();
+      }
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   return (
@@ -59,11 +78,13 @@ function DebtComponent({ debt, onClick }: IDebtComponent) {
         <LineViewText>{debt.debtAmount}</LineViewText>
         <LineViewText>{debt.debtDueDate.toLocaleString()}</LineViewText>
         <LineViewText>{status}</LineViewText>
-        <LineViewText>
-          <Tooltip text="Enviar e-mail">
-            <MdMail onClick={handleEmail} size={24} cursor={'pointer'} />
-          </Tooltip>
-        </LineViewText>
+        {debt.status.toString() !== 'PAYED' && (
+          <LineViewText>
+            <Tooltip text="Enviar e-mail">
+              <MdMail onClick={handleEmail} size={24} cursor={'pointer'} />
+            </Tooltip>
+          </LineViewText>
+        )}
       </LineView>
     </>
   );
