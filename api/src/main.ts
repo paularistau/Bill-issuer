@@ -5,8 +5,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as cors from 'cors';
 
-console.log(process.env);
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 

@@ -11,13 +11,12 @@ export const fetchPayments = async (): Promise<IPayment[]> => {
 export const createPayment = async (id) => {
   try {
     const { data } = await axios.get(`http://localhost:3000/debts/${id}`);
-    console.log('data', data)
+
     const payment: IPayment = {
       debtId: id,
       paidAt: new Date(),
       paidBy: data.name
     }
-
 
     const response = await axios.post('http://localhost:3000/payments', payment);
     await axios.patch(`http://localhost:3000/debts/${id}/status`, { status: 'PAYED' })

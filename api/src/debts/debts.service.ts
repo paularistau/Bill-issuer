@@ -41,9 +41,9 @@ export class DebtsService {
         return user;
       } catch (error) {
         if (error instanceof QueryFailedError) {
-          console.log('Erro ao inserir registro:', error, createDebtDto);
+          console.error('Erro ao inserir registro:', error, createDebtDto);
         } else {
-          console.log('Erro desconhecido:', error, createDebtDto);
+          console.error('Erro desconhecido:', error, createDebtDto);
         }
       }
     });

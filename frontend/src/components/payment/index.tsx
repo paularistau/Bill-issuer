@@ -9,7 +9,6 @@ import { Loading } from '../loading';
 export const PaymentCompleted = memo(() => {
   const [loading, setLoading] = useState<boolean>(true);
   const [hasError, setError] = useState<boolean>(false);
-  console.log('complete');
   const currentUrl = window.location.href;
 
   const debtId = useMemo(() => {

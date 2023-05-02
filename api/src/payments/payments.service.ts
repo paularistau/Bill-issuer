@@ -38,9 +38,9 @@ export class PaymentsService {
         return user;
       } catch (error) {
         if (error instanceof QueryFailedError) {
-          console.log('Erro ao inserir registro:', error, createPaymentDto);
+          console.error('Erro ao inserir registro:', error, createPaymentDto);
         } else {
-          console.log('Erro desconhecido:', error, createPaymentDto);
+          console.error('Erro desconhecido:', error, createPaymentDto);
         }
       }
     });

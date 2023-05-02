@@ -34,7 +34,6 @@ export const Debts = memo(() => {
   ];
 
   const handleCreateDebt = useCallback(async (event) => {
-    console.log(event.target.files[0]);
     const response = await handleSubmitCSV(event, event.target.files[0]);
 
     return response;
@@ -88,7 +87,7 @@ export const Debts = memo(() => {
                     {debts.map((item) => (
                       <DebtLine
                         key={item?.debtId}
-                        onClick={() => console.log(item)}
+                        onClick={() => {}}
                         debt={item}
                       />
                     ))}

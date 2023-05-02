@@ -56,10 +56,9 @@ function DebtComponent({ debt, onClick }: IDebtComponent) {
       } else {
         notifySuccess();
       }
-      console.log(response);
       return response;
     } catch (error) {
-      console.log(error);
+      console.error('Unable to send email', error);
     }
   }, []);
 
