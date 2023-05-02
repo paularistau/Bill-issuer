@@ -2,7 +2,7 @@
 
 Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL, Docker e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
 
-O Nestjs é um framework para Node.js que permite a criação de aplicações escaláveis e eficientes. Ele utiliza uma arquitetura modular baseada em módulos, o que torna o código mais organizado e fácil de manter. Além disso, o Nestjs é altamente configurável e extensível, permitindo que os desenvolvedores personalizem a aplicação de acordo com suas necessidades.
+O Nestjs é um framework para Node.js que permite a criação de aplicações escaláveis e eficientes. Ele utiliza uma arquitetura modular, o que torna o código mais organizado e fácil de manter. Além disso, o Nestjs é altamente configurável e extensível, permitindo que os desenvolvedores personalizem a aplicação de acordo com suas necessidades.
 
 O TypeORM é um ORM (Object Relational Mapping) para TypeScript e JavaScript que permite a interação com bancos de dados de forma mais intuitiva e eficiente. Ele suporta diversos bancos de dados, incluindo o PostgreSQL, e possui uma sintaxe fácil de entender, o que torna o desenvolvimento mais rápido e produtivo.
 
