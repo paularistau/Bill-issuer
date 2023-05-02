@@ -26,7 +26,7 @@ A tela de débitos lista todos os débitos do sistema, nela também é possível
 
 ![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/9921ea48a68ebd13efbe91b2d2dfc393b69c04d9e52f225e.png)
 
-O e-mail que é enviado ao servidor de teste permite o scan do QRCode ou click pelo navegador. Para validar o débito pelo celular, você deve passar as configurações de rede nabs variáveis de ambiente.
+O e-mail que é enviado ao servidor de teste permite o scan do QRCode ou click pelo navegador. Para validar o débito pelo celular, você deve passar as configurações de rede nas variáveis de ambiente.
 
 ![](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/bc92d391ce8c7fbd748f2e43abd66e4c6bcd7f50f62c3c71.png)
 
