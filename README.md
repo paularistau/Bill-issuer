@@ -1,4 +1,4 @@
-## Kanastra Boletos 💸
+## Emissor de Boletos 💸
 
 Este projeto foi desenvolvido utilizando algumas das mais populares tecnologias do mercado: Nestjs, TypeORM, PostgreSQL, Docker e React. A escolha dessas tecnologias foi baseada em dois principais fatores: familiaridade e facilidade de implementação de múltiplos ambientes.
 
